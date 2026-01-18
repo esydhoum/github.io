@@ -1,0 +1,3420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dewla Seafood | Premium Seafood Exporter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables - UNCHANGED */
+        :root {
+            --deep-blue: #0a192f;
+            --ocean-blue: #112240;
+            --turquoise: #4fc3f7;
+            --light-turquoise: #64d8ff;
+            --ocean-purple: #7e57c2;
+            --light-purple: #9575cd;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #b3e5fc;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            
+            --section-padding: 100px 5%;
+            
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --glass-blur: blur(10px);
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --deep-blue: #050a1a;
+            --ocean-blue: #0a1129;
+            --glass-bg: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Reset & Base Styles - UNCHANGED */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--deep-blue);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: var(--transition-smooth);
+            cursor: default !important; /* إزالة المؤشر المخصص */
+        }
+
+        /* Loading Screen - UNCHANGED */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .loading-logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .loading-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .loading-text {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: var(--turquoise);
+            letter-spacing: 2px;
+        }
+
+        .loading-char {
+            display: inline-block;
+            opacity: 0;
+            animation: charAppear 0.5s forwards;
+        }
+
+        .loading-space {
+            display: inline-block;
+            width: 10px;
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 0 auto;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--turquoise), var(--ocean-purple));
+            animation: loading 3s ease-in-out forwards;
+        }
+
+        /* Scroll Progress - UNCHANGED */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            z-index: 9997;
+            background-color: rgba(10, 25, 47, 0.2);
+        }
+
+        .scroll-wave {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--turquoise), var(--ocean-purple));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-wave::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: wave-shimmer 2s infinite linear;
+        }
+
+        .scroll-percentage {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            font-size: 12px;
+            color: var(--turquoise);
+            z-index: 9997;
+            background-color: rgba(10, 25, 47, 0.5);
+            padding: 5px 10px;
+            border-radius: 20px;
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* =========================================== */
+        /* HEADER - IMPROVED FOR MOBILE */
+        /* =========================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 5%;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            backdrop-filter: var(--glass-blur);
+            background-color: rgba(10, 25, 47, 0.9);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header.scrolled {
+            padding: 10px 5%;
+            background-color: rgba(10, 25, 47, 0.95);
+        }
+
+        /* جعل الرأس أصغر على الهواتف */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 5% !important;
+                height: 60px; /* ارتفاع أصغر للهواتف */
+            }
+            
+            .header.scrolled {
+                padding: 8px 5% !important;
+            }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Logo - SMALLER ON MOBILE */
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1002;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                height: 40px; /* أصغر للهواتف */
+                gap: 8px;
+            }
+        }
+
+        .logo-image-container {
+            height: 100%;
+            width: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition-smooth);
+        }
+
+        @media (max-width: 768px) {
+            .logo-image {
+                height: 35px; /* أصغر للهواتف */
+            }
+        }
+
+        .logo-text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo-main-text {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        @media (max-width: 768px) {
+            .logo-main-text {
+                font-size: 1.3rem; /* أصغر للهواتف */
+            }
+        }
+
+        .logo-sub-text {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--turquoise);
+            letter-spacing: 1.2px;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .logo-sub-text {
+                font-size: 0.65rem; /* أصغر للهواتف */
+                letter-spacing: 1px;
+            }
+        }
+
+        /* Desktop Navigation - Hidden on Mobile */
+        .nav-menu {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* إخفاء القائمة الأصلية على الهواتف */
+            }
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--turquoise);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--turquoise);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-actions {
+                gap: 0.8rem;
+            }
+        }
+
+        .language-switcher {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .lang-btn {
+                padding: 4px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        .lang-btn.active {
+            background-color: var(--turquoise);
+            color: var(--deep-blue);
+        }
+
+        .theme-toggle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(30deg);
+        }
+
+        /* =========================================== */
+        /* MOBILE MENU BUTTON (Three Lines) */
+        /* =========================================== */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1002;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex; /* إظهار الزر على الهواتف فقط */
+            }
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--turquoise);
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        /* Animation for active state (变成X) */
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* =========================================== */
+        /* MOBILE SIDEBAR MENU */
+        /* =========================================== */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--ocean-blue) 100%);
+            backdrop-filter: blur(20px);
+            z-index: 1001;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            padding: 80px 25px 30px;
+            border-left: 1px solid var(--glass-border);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-sidebar.active {
+            right: 0;
+        }
+
+        .mobile-sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .mobile-sidebar-nav .nav-list {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mobile-sidebar-nav .nav-item {
+            width: 100%;
+        }
+
+        .mobile-sidebar-nav .nav-link {
+            display: block;
+            padding: 18px 25px;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-sidebar-nav .nav-link:hover {
+            background-color: rgba(79, 195, 247, 0.15);
+            transform: translateX(5px);
+            border-color: var(--turquoise);
+        }
+
+        /* Mobile sidebar language switcher */
+        .mobile-sidebar .language-switcher {
+            justify-content: center;
+            margin: 20px 0;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: 25px;
+        }
+
+        /* Mobile sidebar theme toggle */
+        .mobile-sidebar .theme-toggle {
+            margin: 0 auto;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mobile sidebar overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(3px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Body lock when sidebar is open */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        /* =========================================== */
+        /* HERO SECTION */
+        /* =========================================== */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--ocean-blue) 50%, #1a237e 100%);
+            z-index: -2;
+        }
+
+        .water-distortion {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%234fc3f7' fill-opacity='0.05' d='M44.7,-76.4C58.1,-69.4,69.4,-58.1,76.4,-44.7C83.4,-31.3,86.2,-15.7,86.2,0C86.2,15.7,83.4,31.3,76.4,44.7C69.4,58.1,58.1,69.4,44.7,76.4C31.3,83.4,15.7,86.2,0,86.2C-15.7,86.2,-31.3,83.4,-44.7,76.4C-58.1,69.4,-69.4,58.1,-76.4,44.7C-83.4,31.3,-86.2,15.7,-86.2,0C-86.2,-15.7,-83.4,-31.3,-76.4,-44.7C-69.4,-58.1,-58.1,-69.4,-44.7,-76.4Z' transform='translate(100 100)' /%3E%3C/svg%3E");
+            background-size: 500px;
+            animation: waterMove 20s infinite linear;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--turquoise), var(--light-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .hero-cta {
+            background: linear-gradient(45deg, var(--turquoise), var(--ocean-purple));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--ocean-purple), var(--turquoise));
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+
+        .hero-cta:hover::before {
+            left: 0;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(79, 195, 247, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--turquoise), transparent);
+            margin-bottom: 10px;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 0;
+        }
+
+        .layer-1 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cpath d='M100,300 Q250,250 400,300 T700,300' stroke='%234fc3f7' stroke-width='2' fill='none' opacity='0.1'/%3E%3C/svg%3E");
+        }
+
+        .layer-2 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cpath d='M50,400 Q300,350 500,400 T750,350' stroke='%237e57c2' stroke-width='3' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        .layer-3 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Ccircle cx='200' cy='200' r='5' fill='%234fc3f7' opacity='0.2'/%3E%3Ccircle cx='600' cy='150' r='8' fill='%237e57c2' opacity='0.2'/%3E%3Ccircle cx='300' cy='100' r='6' fill='%234fc3f7' opacity='0.2'/%3E%3Ccircle cx='700' cy='250' r='4' fill='%237e57c2' opacity='0.2'/%3E%3C/svg%3E");
+        }
+
+        .layer-4 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cpath d='M150,500 Q350,450 650,500' stroke='%2364d8ff' stroke-width='1' fill='none' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* Common Section Styles - UNCHANGED */
+        section {
+            padding: var(--section-padding);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-weight: 300;
+        }
+
+        .section-divider {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .wave-divider {
+            width: 200px;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20'%3E%3Cpath d='M0,10 Q25,0 50,10 T100,10 T150,10 T200,10' stroke='%234fc3f7' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        /* About Section - UNCHANGED */
+        .about-section {
+            background-color: var(--ocean-blue);
+            position: relative;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--glass-shadow);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-card {
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--turquoise);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .highlight-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .highlight-icon {
+            font-size: 2rem;
+            color: var(--turquoise);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .floating-bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bubble {
+            position: absolute;
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+        }
+
+        /* Products Gallery - UNCHANGED */
+        .gallery-section {
+            background-color: var(--deep-blue);
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .fish-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .fish-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fish-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(79, 195, 247, 0.2);
+        }
+
+        .fish-card:hover .fish-image {
+            transform: scale(1.1);
+        }
+
+        .fish-card:hover .fish-name {
+            color: var(--turquoise);
+        }
+
+        .fish-image-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .fish-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  /* تم التغيير من cover إلى contain */
+            transition: transform 0.7s ease;
+        }
+
+        .fish-info {
+            padding: 1.5rem;
+        }
+
+        .fish-name {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .fish-scientific {
+            font-size: 0.9rem;
+            color: var(--turquoise);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .fish-habitat {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Our Facilities Section - NEW DESIGN */
+        .facilities-section {
+            background-color: var(--ocean-blue);
+        }
+
+        .facilities-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .facility-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            opacity: 0;
+            transform: translateY(50px) rotateX(10deg);
+            cursor: pointer;
+        }
+
+        .facility-card.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .facility-card:hover {
+            transform: translateY(-10px) rotateX(0) rotateY(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .facility-image-container {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .facility-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  /* تم التغيير من cover إلى contain */
+            transition: transform 0.7s ease;
+        }
+
+        .facility-card:hover .facility-image {
+            transform: scale(1.1);
+        }
+
+        .facility-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .facility-name {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .facility-type {
+            font-size: 0.9rem;
+            color: var(--turquoise);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .facility-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .facility-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .feature-tag {
+            background: rgba(79, 195, 247, 0.1);
+            color: var(--light-turquoise);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(79, 195, 247, 0.2);
+        }
+
+        /* Company Information Section - IMPROVED DESIGN */
+        .company-section {
+            background-color: var(--deep-blue);
+        }
+
+        .company-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .company-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .company-card:hover::before {
+            left: 100%;
+        }
+
+        .company-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(79, 195, 247, 0.15);
+        }
+
+        .company-icon {
+            font-size: 3rem;
+            color: var(--turquoise);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .company-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .company-info-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .company-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .company-info-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-icon {
+            font-size: 1.2rem;
+            color: var(--turquoise);
+            min-width: 24px;
+            margin-top: 0.2rem;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .info-link {
+            color: var(--turquoise);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-link:hover {
+            color: var(--light-turquoise);
+            text-decoration: underline;
+        }
+
+        .certificates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .certificate-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .certificate-icon {
+            font-size: 2rem;
+            color: var(--turquoise);
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section - UNCHANGED */
+        .contact-section {
+            background-color: var(--ocean-blue);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            outline: none;
+            resize: none;
+        }
+
+        .form-label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .form-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-line::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--turquoise);
+            transition: width 0.3s ease;
+        }
+
+        .form-input:focus ~ .form-label,
+        .form-input:valid ~ .form-label {
+            top: -20px;
+            font-size: 0.9rem;
+            color: var(--turquoise);
+        }
+
+        .form-input:focus ~ .form-line::after,
+        .form-input:valid ~ .form-line::after {
+            width: 100%;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--turquoise), var(--ocean-purple));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+            width: 100%;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--ocean-purple), var(--turquoise));
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+
+        .submit-btn:hover::before {
+            left: 0;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(79, 195, 247, 0.4);
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer - UNCHANGED */
+        .footer {
+            background-color: var(--deep-blue);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            height: 70px;
+            margin: 0 auto 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo-text {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--turquoise);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .social-icon:hover {
+            background-color: var(--turquoise);
+            color: var(--deep-blue);
+            transform: translateY(-5px);
+        }
+
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Modal - UNCHANGED */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            background-color: var(--turquoise);
+            color: var(--deep-blue);
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 0;
+            height: 100%;
+        }
+
+        .modal-image-container {
+            height: 100%;
+            min-height: 400px;
+            overflow: hidden;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  /* تم التغيير من cover إلى contain */
+        }
+
+        .modal-info {
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        .modal-info h3 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .modal-info p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: var(--turquoise);
+            font-weight: 500;
+        }
+
+        /* Image Placeholder Styles */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--ocean-blue), var(--deep-blue));
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .placeholder-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--turquoise);
+        }
+
+        /* Animations - UNCHANGED */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes charAppear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes waterMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 500px 500px; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        @keyframes wave-shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(100vh) rotate(0deg); }
+            to { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================== */
+        /* RESPONSIVE FIXES */
+        /* =========================================== */
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+                padding: 10px 0;
+            }
+            
+            .nav-list {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+                line-height: 1.2;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+                padding: 0 10px;
+            }
+            
+            .hero-cta {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+                padding: 0 10px;
+            }
+            
+            .section-subtitle {
+                font-size: 1.1rem;
+                padding: 0 15px;
+            }
+            
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .facilities-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .company-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .company-card {
+                padding: 2rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .modal-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-image-container {
+                min-height: 300px;
+            }
+            
+            .modal-info {
+                padding: 2rem;
+            }
+            
+            .logo {
+                height: 50px;
+            }
+            
+            .logo-main-text {
+                font-size: 1.5rem;
+            }
+            
+            .logo-sub-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-container,
+            .facilities-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .glass-card {
+                padding: 2rem;
+            }
+            
+            .card-title {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                flex-direction: column;
+                gap: 5px;
+                height: auto;
+            }
+            
+            .logo-text-container {
+                align-items: center;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+            
+            .facilities-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .nav-list {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                max-width: 100%;
+            }
+            
+            section {
+                padding: 80px 20px;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .fish-card:hover,
+            .facility-card:hover,
+            .glass-card:hover,
+            .company-card:hover {
+                transform: none;
+            }
+            
+            .hero-cta:hover,
+            .submit-btn:hover {
+                transform: none;
+            }
+            
+            .nav-link,
+            .lang-btn,
+            .social-icon {
+                min-height: 44px;
+                min-width: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        /* FIX: Modal image size and positioning */
+.modal-image-container {
+    overflow: auto !important;
+    max-height: 70vh !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: var(--deep-blue);
+}
+
+#modalImage {
+    max-width: 100% !important;
+    max-height: 70vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+.modal-info {
+    overflow-y: auto !important;
+    max-height: 70vh !important;
+    padding: 2rem !important;
+}
+
+/* Ensure modal content is balanced on desktop */
+@media (min-width: 769px) {
+    .modal-content {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+/* Stack on mobile */
+@media (max-width: 768px) {
+    .modal-content {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .modal-image-container {
+        max-height: 40vh !important;
+        min-height: 200px !important;
+    }
+    
+    #modalImage {
+        max-height: 40vh !important;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="images/logo/logo.svg" alt="Dewla Seafood Logo">
+            </div>
+            <div class="loading-text">
+                <span class="loading-char">D</span>
+                <span class="loading-char">E</span>
+                <span class="loading-char">W</span>
+                <span class="loading-char">L</span>
+                <span class="loading-char">A</span>
+                <span class="loading-space"></span>
+                <span class="loading-char">S</span>
+                <span class="loading-char">E</span>
+                <span class="loading-char">A</span>
+                <span class="loading-char">F</span>
+                <span class="loading-char">O</span>
+                <span class="loading-char">O</span>
+                <span class="loading-char">D</span>
+            </div>
+            <div class="loading-progress">
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- تم إزالة Custom Cursor -->
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="scroll-wave" id="scrollWave"></div>
+        <div class="scroll-percentage" id="scrollPercentage">0%</div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <header class="header" id="mainHeader">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-image-container">
+                    <img class="logo-image" src="images/logo/logo.svg" alt="Dewla Seafood Logo">
+                </div>
+                <div class="logo-text-container">
+                    <div class="logo-main-text">DEWLA SEAFOOD</div>
+                    <div class="logo-sub-text">Premium Seafood Exporter</div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#hero" class="nav-link" data-i18n="nav.home">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+                    <li class="nav-item"><a href="#gallery" class="nav-link" data-i18n="nav.gallery">Products</a></li>
+                    <li class="nav-item"><a href="#facilities" class="nav-link" data-i18n="nav.facilities">Facilities</a></li>
+                    <li class="nav-item"><a href="#company" class="nav-link" data-i18n="nav.company">Company</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="fr">FR</button>
+                </div>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                
+                <!-- Mobile Menu Button (Three Lines) -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <nav class="mobile-sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#hero" class="nav-link" data-i18n="nav.home">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+                <li class="nav-item"><a href="#gallery" class="nav-link" data-i18n="nav.gallery">Products</a></li>
+                <li class="nav-item"><a href="#facilities" class="nav-link" data-i18n="nav.facilities">Facilities</a></li>
+                <li class="nav-item"><a href="#company" class="nav-link" data-i18n="nav.company">Company</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="language-switcher">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
+        </div>
+        
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-background" id="heroBackground"></div>
+            <div class="water-distortion"></div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title" data-i18n="hero.title">DEWLA SEAFOOD</h1>
+                <p class="hero-subtitle" data-i18n="hero.subtitle">Premium Frozen Seafood from Mauritania</p>
+                <button class="hero-cta" data-i18n="hero.cta">Explore Our Products</button>
+            </div>
+            
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+                <span data-i18n="hero.scroll">Scroll to explore</span>
+            </div>
+            
+            <div class="parallax-layer layer-1" data-depth="0.1"></div>
+            <div class="parallax-layer layer-2" data-depth="0.3"></div>
+            <div class="parallax-layer layer-3" data-depth="0.5"></div>
+            <div class="parallax-layer layer-4" data-depth="0.7"></div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="about.title">About DEWLA SEAFOOD</h2>
+                <div class="section-divider">
+                    <div class="wave-divider"></div>
+                </div>
+            </div>
+            
+            <div class="about-content">
+                <div class="glass-card about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-anchor"></i>
+                    </div>
+                    <h3 class="card-title">Our Story</h3>
+                    <p class="card-text" data-i18n="about.text">
+                        DEWLA SEAFOOD is a trusted name in the seafood industry, proudly specializing in the production, processing, and export of premium frozen seafood products sourced from the rich and pristine waters of the Atlantic coast of Mauritania.
+                        <br><br>
+                        With a deep commitment to quality, sustainability, and freshness, DEWLA SEAFOOD ensures that every product meets the highest international standards — from the moment it is caught to the time it reaches our customers worldwide. Our modern facilities are equipped with advanced freezing and packaging technologies that preserve the natural taste, texture, and nutritional value of the seafood.
+                        <br><br>
+                        At DEWLA SEAFOOD, we work closely with local fishermen and use responsible fishing methods to protect marine life and promote the long-term sustainability of ocean resources. Our diverse range of products includes a wide selection of fish, cephalopods, and crustaceans, carefully processed and packed to satisfy the needs of global markets.
+                        <br><br>
+                        Driven by passion and professionalism, our team strives to deliver excellence in every shipment — ensuring that our partners and clients always receive seafood that is fresh, flavorful, and full of the Atlantic's authentic taste.
+                        <br><br>
+                        Whether supplying wholesalers, retailers, or food service companies, DEWLA SEAFOOD continues to build a reputation as one of Mauritania's leading seafood exporters, connecting the ocean's bounty with tables around the world.
+                    </p>
+                    
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-fish"></i>
+                            </div>
+                            <h4 class="highlight-title">Premium Quality</h4>
+                            <p class="highlight-text">Highest international standards</p>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4 class="highlight-title">Sustainable</h4>
+                            <p class="highlight-text">Responsible fishing methods</p>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h4 class="highlight-title">Global Export</h4>
+                            <p class="highlight-text">Worldwide distribution</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="floating-bubbles">
+                <!-- Bubbles will be generated by JS -->
+            </div>
+        </section>
+
+        <!-- Products Gallery -->
+        <section class="gallery-section" id="gallery">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="gallery.title">Our Products</h2>
+                <p class="section-subtitle" data-i18n="gallery.subtitle"> premium seafood varieties from Mauritania</p>
+                <div class="section-divider">
+                    <div class="wave-divider"></div>
+                </div>
+            </div>
+            
+            <div class="gallery-container" id="fishGallery">
+                <!-- 38 product cards will be generated dynamically by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Our Facilities Section -->
+        <section class="facilities-section" id="facilities">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="facilities.title">Our Facilities</h2>
+                <p class="section-subtitle" data-i18n="facilities.subtitle">Modern infrastructure for premium quality</p>
+                <div class="section-divider">
+                    <div class="wave-divider"></div>
+                </div>
+            </div>
+            
+            <div class="facilities-container" id="facilitiesGallery">
+                <!-- Facility cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Company Information Section -->
+        <section class="company-section" id="company">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="company.title">Company Information</h2>
+                <p class="section-subtitle" data-i18n="company.subtitle">Get to know our company better</p>
+                <div class="section-divider">
+                    <div class="wave-divider"></div>
+                </div>
+            </div>
+            
+            <div class="company-container">
+                <div class="company-grid">
+                    <div class="company-card">
+                        <div class="company-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="company-title" data-i18n="company.info.title">Company Details</h3>
+                        
+                        <ul class="company-info-list">
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label" data-i18n="company.location">Location</div>
+                                    <div class="info-value">Port Artisanale, Lot N° 75 ILOT.
+                                        S.E.T NDB ZONE FRANCHE DE
+                                        Nouadhibou
+                                        </div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Established</div>
+                                    <div class="info-value">2010</div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Industry</div>
+                                    <div class="info-value">Seafood Processing & Export</div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Export Markets</div>
+                                    <div class="info-value">Europe, Asia, Africa, USA</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="company-card">
+                        <div class="company-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h3 class="company-title" data-i18n="company.facilities.title">Our Facilities</h3>
+                        
+                        <ul class="company-info-list">
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-snowflake"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Processing Capacity</div>
+                                    <div class="info-value">200+ tons monthly</div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Packaging</div>
+                                    <div class="info-value">Advanced IQF technology</div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-ship"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Logistics</div>
+                                    <div class="info-value">Direct port access</div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Workforce</div>
+                                    <div class="info-value">150+ skilled professionals</div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="certificates">
+                            <div class="certificate-item">
+                                <div class="certificate-icon">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <div class="certificate-text">HACCP</div>
+                            </div>
+                            
+                            <div class="certificate-item">
+                                <div class="certificate-icon">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div class="certificate-text">ISO 22000</div>
+                            </div>
+                            
+                            <div class="certificate-item">
+                                <div class="certificate-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="certificate-text">BRC</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="company-card">
+                        <div class="company-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="company-title" data-i18n="company.contact.title">Contact Information</h3>
+                        
+                        <ul class="company-info-list">
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label" data-i18n="company.email">Email</div>
+                                    <div class="info-value">
+                                        <a href="mailto:info@dewlaseafood.com" class="info-link">Mol118@hotmail.com</a>
+                                        <a>Seafooddewla@gmail.com</a>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label" data-i18n="company.phone">Phone</div>
+                                    <div class="info-value">+222 41 03 49 19</div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-fax"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">WhatsApp</div>
+                                    <div class="info-value">+34 66 60 79 435</div>
+                                </div>
+                            </li>
+                            
+                            <li class="company-info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Business Hours</div>
+                                    <div class="info-value">Mon-Fri: 8:00-18:00</div>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="company-info-item" style="margin-top: 2rem; border: none; padding: 0;">
+                            <div class="info-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="info-content">
+                                <div class="info-label">Languages</div>
+                                <div class="info-value">Arabic, French, English</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="contact.title">Contact Us</h2>
+                <p class="section-subtitle" data-i18n="contact.subtitle">Get in touch for business inquiries</p>
+                <div class="section-divider">
+                    <div class="wave-divider"></div>
+                </div>
+            </div>
+            
+            <div class="contact-container">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" class="form-input" required>
+                        <label for="name" class="form-label" data-i18n="contact.form.name">Full Name</label>
+                        <div class="form-line"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" class="form-input" required>
+                        <label for="email" class="form-label" data-i18n="contact.form.email">Email Address</label>
+                        <div class="form-line"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" id="phone" class="form-input" required>
+                        <label for="phone" class="form-label" data-i18n="contact.form.phone">Phone Number</label>
+                        <div class="form-line"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="message" class="form-input" rows="5" required></textarea>
+                        <label for="message" class="form-label" data-i18n="contact.form.message">Your Message</label>
+                        <div class="form-line"></div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" data-i18n="contact.form.submit">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/logo/logo.svg" alt="Dewla Seafood Logo">
+                <div class="footer-logo-text">DEWLA SEAFOOD</div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
+                <a href="#" data-i18n="footer.terms">Terms of Service</a>
+                <a href="#" data-i18n="footer.careers">Careers</a>
+                <a href="mailto:info@dewlaseafood.com" data-i18n="footer.contact">Contact</a>
+            </div>
+            
+            <div class="footer-social">
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/222360000000" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p data-i18n="footer.copyright">© 2023 DEWLA SEAFOOD. All rights reserved. | Premium Seafood Exporter from Mauritania</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Products/Facilities Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-content">
+                <div class="modal-image-container">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalDescription"></p>
+                    <div class="modal-details" id="modalDetails">
+                        <!-- Dynamic details will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // TRANSLATION OBJECT
+        // ===========================================
+        const translations = {
+            en: {
+                // Navigation
+                "nav.home": "Home",
+                "nav.about": "About",
+                "nav.gallery": "Products",
+                "nav.facilities": "Facilities",
+                "nav.company": "Company",
+                "nav.contact": "Contact",
+                
+                // Hero section
+                "hero.title": "DEWLA SEAFOOD",
+                "hero.subtitle": "Premium Frozen Seafood from Mauritania",
+                "hero.cta": "Explore Our Products",
+                "hero.scroll": "Scroll to explore",
+                
+                // About section
+                "about.title": "About DEWLA SEAFOOD",
+                "about.text": `DEWLA SEAFOOD is a trusted name in the seafood industry, proudly specializing in the production, processing, and export of premium frozen seafood products sourced from the rich and pristine waters of the Atlantic coast of Mauritania.
+                
+                With a deep commitment to quality, sustainability, and freshness, DEWLA SEAFOOD ensures that every product meets the highest international standards — from the moment it is caught to the time it reaches our customers worldwide. Our modern facilities are equipped with advanced freezing and packaging technologies that preserve the natural taste, texture, and nutritional value of the seafood.
+                
+                At DEWLA SEAFOOD, we work closely with local fishermen and use responsible fishing methods to protect marine life and promote the long-term sustainability of ocean resources. Our diverse range of products includes a wide selection of fish, cephalopods, and crustaceans, carefully processed and packed to satisfy the needs of global markets.
+                
+                Driven by passion and professionalism, our team strives to deliver excellence in every shipment — ensuring that our partners and clients always receive seafood that is fresh, flavorful, and full of the Atlantic's authentic taste.
+                
+                Whether supplying wholesalers, retailers, or food service companies, DEWLA SEAFOOD continues to build a reputation as one of Mauritania's leading seafood exporters, connecting the ocean's bounty with tables around the world.`,
+                
+                // Products section
+                "gallery.title": "Our Products",
+                "gallery.subtitle": " premium seafood varieties from Mauritania",
+                
+                // Facilities section
+                "facilities.title": "Our Facilities",
+                "facilities.subtitle": "Modern infrastructure for premium quality",
+                
+                // Company Information section
+                "company.title": "Company Information",
+                "company.subtitle": "Get to know our company better",
+                "company.info.title": "Company Details",
+                "company.location": "Location",
+                "company.email": "Email",
+                "company.phone": "Phone",
+                "company.facilities.title": "Our Facilities",
+                "company.contact.title": "Contact Information",
+                
+                // Contact section
+                "contact.title": "Contact Us",
+                "contact.subtitle": "Get in touch for business inquiries",
+                "contact.form.name": "Full Name",
+                "contact.form.email": "Email Address",
+                "contact.form.phone": "Phone Number",
+                "contact.form.message": "Your Message",
+                "contact.form.submit": "Send Message",
+                
+                // Modal
+                "modal.origin": "Origin:",
+                "modal.grade": "Quality Grade:",
+                "modal.size": "Available Size:",
+                "modal.packaging": "Packaging:",
+                "modal.export": "Export Markets:",
+                "modal.type": "Facility Type:",
+                "modal.capacity": "Capacity:",
+                "modal.technology": "Technology:",
+                "modal.certifications": "Certifications:",
+                
+                // Footer
+                "footer.privacy": "Privacy Policy",
+                "footer.terms": "Terms of Service",
+                "footer.careers": "Careers",
+                "footer.contact": "Contact",
+                "footer.copyright": "© 2023 DEWLA SEAFOOD. All rights reserved. | Premium Seafood Exporter from Mauritania"
+            },
+            fr: {
+                // Navigation
+                "nav.home": "Accueil",
+                "nav.about": "À propos",
+                "nav.gallery": "Produits",
+                "nav.facilities": "Installations",
+                "nav.company": "Entreprise",
+                "nav.contact": "Contact",
+                
+                // Hero section
+                "hero.title": "DEWLA SEAFOOD",
+                "hero.subtitle": "Fruits de Mer Congelés Premium de Mauritanie",
+                "hero.cta": "Explorer Nos Produits",
+                "hero.scroll": "Défiler pour explorer",
+                
+                // About section
+                "about.title": "À propos de DEWLA SEAFOOD",
+                "about.text": `DEWLA SEAFOOD est un nom de confiance dans l'industrie des fruits de mer, spécialisé avec fierté dans la production, la transformation et l'exportation de produits de la mer congelés premium provenant des eaux riches et préservées de la côte atlantique de la Mauritanie.
+                
+                Avec un engagement profond envers la qualité, la durabilité et la fraîcheur, DEWLA SEAFOOD garantit que chaque produit répond aux normes internationales les plus élevées — du moment où il est pêché jusqu'à ce qu'il atteigne nos clients dans le monde entier. Nos installations modernes sont équipées de technologies de congélation et d'emballage avancées qui préservent le goût naturel, la texture et la valeur nutritionnelle des fruits de mer.
+                
+                Chez DEWLA SEAFOOD, nous travaillons en étroite collaboration avec les pêcheurs locaux et utilisons des méthodes de pêche responsables pour protéger la vie marine et promouvoir la durabilité à long terme des ressources océaniques. Notre gamme diversifiée de produits comprend une large sélection de poissons, céphalopodes et crustacés, soigneusement transformés et emballés pour satisfaire les besoins des marchés mondiaux.
+                
+                Animés par la passion et le professionnalisme, notre équipe s'efforce de livrer l'excellence dans chaque expédition — garantissant que nos partenaires et clients reçoivent toujours des fruits de mer frais, savoureux et pleins du goût authentique de l'Atlantique.
+                
+                Qu'il s'agisse d'approvisionner des grossistes, des détaillants ou des entreprises de restauration, DEWLA SEAFOOD continue de bâtir une réputation en tant que l'un des principaux exportateurs de fruits de mer de Mauritanie, connectant les richesses de l'océan avec les tables du monde entier.`,
+                
+                // Products section
+                "gallery.title": "Nos Produits",
+                "gallery.subtitle": " variétés premium de fruits de mer de Mauritanie",
+                
+                // Facilities section
+                "facilities.title": "Nos Installations",
+                "facilities.subtitle": "Infrastructure moderne pour une qualité premium",
+                
+                // Company Information section
+                "company.title": "Informations sur l'Entreprise",
+                "company.subtitle": "Apprenez à mieux connaître notre entreprise",
+                "company.info.title": "Détails de l'Entreprise",
+                "company.location": "Localisation",
+                "company.email": "Email",
+                "company.phone": "Téléphone",
+                "company.facilities.title": "Nos Installations",
+                "company.contact.title": "Informations de Contact",
+                
+                // Contact section
+                "contact.title": "Contactez-Nous",
+                "contact.subtitle": "Contactez-nous pour des demandes commerciales",
+                "contact.form.name": "Nom Complet",
+                "contact.form.email": "Adresse Email",
+                "contact.form.phone": "Numéro de Téléphone",
+                "contact.form.message": "Votre Message",
+                "contact.form.submit": "Envoyer le Message",
+                
+                // Modal
+                "modal.origin": "Origine:",
+                "modal.grade": "Niveau de Qualité:",
+                "modal.size": "Taille Disponible:",
+                "modal.packaging": "Emballage:",
+                "modal.export": "Marchés d'Exportation:",
+                "modal.type": "Type d'Installation:",
+                "modal.capacity": "Capacité:",
+                "modal.technology": "Technologie:",
+                "modal.certifications": "Certifications:",
+                
+                // Footer
+                "footer.privacy": "Politique de Confidentialité",
+                "footer.terms": "Conditions d'Utilisation",
+                "footer.careers": "Carrières",
+                "footer.contact": "Contact",
+                "footer.copyright": "© 2023 DEWLA SEAFOOD. Tous droits réservés. | Exportateur Premium de Fruits de Mer de Mauritanie"
+            }
+        };
+
+        // ===========================================
+        // IMAGE PATHS CONFIGURATION
+        // ===========================================
+        
+        
+
+        const imagePaths = {
+            // مسارات صور المنتجات (38 صورة)
+            products: Array.from({ length: 38 }, (_, i) => 
+                `images/products/product-${i + 1}.jpg`
+            ),
+            
+            // مسارات صور المرافق (15 صورة)
+            facilities: Array.from({ length: 15 }, (_, i) => 
+                `images/facilities/facility-${i + 1}.jpg`
+            ),
+            
+            // صور بديلة في حالة عدم وجود الصورة
+            fallbacks: {
+                products: (index) => {
+                    const hue = (index * 10) % 360;
+                    return `linear-gradient(135deg, hsl(${hue}, 70%, 50%), hsl(${hue + 30}, 70%, 50%))`;
+                },
+                facilities: (index) => {
+                    const hue = (index * 25) % 360;
+                    return `linear-gradient(135deg, hsl(${hue}, 70%, 50%), hsl(${hue + 30}, 70%, 50%))`;
+                }
+            }
+        };
+
+        // ===========================================
+        // PRODUCTS DATA
+        // ===========================================
+        
+        const seafoodProducts = [
+            {
+                id: 1,
+                name: "Sardines",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "1-3 kg, 3-5 kg, 5-8 kg",
+                packaging: "IQF, Block Frozen",
+                export: "Europe, Asia",
+                description: "Premium quality octopus from the rich Mauritanian waters. Carefully processed and quick-frozen to preserve texture and flavor."
+            },
+            {
+                id: 2,
+                name: "octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "200-400g, 400-600g",
+                packaging: "IQF, Block Frozen",
+                export: "Europe, Middle East",
+                description: "Fresh cuttlefish with excellent texture and flavor. Perfect for Mediterranean and Asian cuisines."
+            },
+            {
+                id: 3,
+                name: "Mackerel",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm, 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Mackerel with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 4,
+                name: "Calamar",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm, 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Calamar with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 5,
+                name: "octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm, 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Squid with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 6,
+                name: "octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "40-80cm, 100-300cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Squid with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 7,
+                name: "octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: " 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Squid with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 8,
+                name: "octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm, 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Squid with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 9,
+                name: "Baby octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm, 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Baby octopus with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 10,
+                name: "Calamar",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Calamar with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 11,
+                name: "Sardines",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "1-10 kg, 30-50 kg, 500-800 kg",
+                packaging: "IQF, Block Frozen",
+                export: "Europe, Asia",
+                description: "Premium quality Sardines from the rich Mauritanian waters. Carefully processed and quick-frozen to preserve texture and flavor."
+            },
+            {
+                id: 12,
+                name: "fish aggs",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "1-10 kg, 30-50 kg, 1000-8000 kg",
+                packaging: "IQF, Block Frozen",
+                export: "Europe, Asia",
+                description: "Premium quality fish aggs from the rich Mauritanian waters. Carefully processed and quick-frozen to preserve texture and flavor."
+            },
+            {
+                id: 13,
+                name: "Calamar",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Calamar with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 14,
+                name: "sole",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender sole with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 15,
+                name: "Sardines",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "1-10 kg, 30-50 kg, 500-800 kg",
+                packaging: "IQF, Block Frozen",
+                export: "Europe, Asia",
+                description: "Premium quality Sardines from the rich Mauritanian waters. Carefully processed and quick-frozen to preserve texture and flavor."
+            },
+            {
+                id: 16,
+                name: "Baby octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "10-20cm, 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Baby octopus with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 17,
+                name: "Baby octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: " 20-30cm",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Baby octopus with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 18,
+                name: "Baby octopus",
+                scientific: "",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Grade A",
+                size: "40-60cm, ",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Asia, USA",
+                description: "Tender Baby octopus with clean taste. Available in various cuts for different culinary applications."
+            },
+            {
+                id: 19,
+                name: "Baby octopus",
+                scientific: "",
+                origin: "Atlanic Coast, Form cansadou",
+                grade: " Premium choux ",
+                size: " 40 kil grame jous pour comande",
+                packaging: "IQF, Rings, Tubes",
+                export: "Europe, Aisa USA",
+                description: "Tender baby octopus withe clean test. Available in various cuts for different culinary applications."
+
+            },
+             
+            // ... (المنتجات 4-37)
+            {
+                id: 38,
+                name: "Langoustine",
+                scientific: "Nephrops norvegicus",
+                origin: "Atlantic Coast, Mauritania",
+                grade: "Premium Whole",
+                size: "Count 10-15, 15-20",
+                packaging: "IQF, Whole",
+                export: "Europe, Japan, USA",
+                description: "Premium langoustines with sweet, delicate flavor."
+            }
+        ];
+
+        // ===========================================
+        // FACILITIES DATA
+        // ===========================================
+        
+        const facilitiesData = [
+            {
+                id: 1,
+                name: "Main Processing Plant",
+                type: "Processing Facility",
+                description: "Our main processing facility in Nouadhibou spans over 5,000 square meters and is equipped with state-of-the-art freezing and processing technology.",
+                capacity: "200+ tons monthly",
+                technology: "IQF Tunnel Freezers",
+                certifications: "HACCP, ISO 22000, BRC",
+                features: ["Automatic sorting", "Temperature control", "Hygiene monitoring"]
+            },
+            // ... (المرافق 2-14)
+            {
+                id: 15,
+                name: "Security & Monitoring",
+                type: "Security Facility",
+                description: "Comprehensive security system with 24/7 monitoring and access control.",
+                capacity: "Full facility coverage",
+                technology: "CCTV surveillance",
+                certifications: "Security standards",
+                features: ["Access control", "Perimeter security", "Fire safety"]
+            }
+        ];
+
+        // ===========================================
+        // DOM ELEMENTS
+        // ===========================================
+        const loadingScreen = document.getElementById('loadingScreen');
+        const scrollWave = document.getElementById('scrollWave');
+        const scrollPercentage = document.getElementById('scrollPercentage');
+        const mainHeader = document.getElementById('mainHeader');
+        const heroBackground = document.getElementById('heroBackground');
+        const fishGallery = document.getElementById('fishGallery');
+        const facilitiesGallery = document.getElementById('facilitiesGallery');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalDetails = document.getElementById('modalDetails');
+        const contactForm = document.getElementById('contactForm');
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const themeToggle = document.querySelector('.theme-toggle');
+        const heroCta = document.querySelector('.hero-cta');
+        
+        // Mobile elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mobileLangButtons = mobileSidebar.querySelectorAll('.lang-btn');
+        const mobileThemeToggle = mobileSidebar.querySelector('.theme-toggle');
+
+        // State variables
+        let currentLang = 'en';
+        let fishCards = [];
+        let facilityCards = [];
+        let isDarkMode = false;
+        let isSidebarOpen = false;
+
+        // ===========================================
+        // MOBILE SIDEBAR FUNCTIONALITY
+        // ===========================================
+        
+        function initMobileSidebar() {
+            // Toggle sidebar when menu button is clicked
+            mobileMenuBtn.addEventListener('click', toggleSidebar);
+            
+            // Close sidebar when overlay is clicked
+            sidebarOverlay.addEventListener('click', closeSidebar);
+            
+            // Close sidebar when clicking a link
+            mobileSidebar.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+            
+            // Handle mobile language switcher
+            mobileLangButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.dataset.lang;
+                    if (lang !== currentLang) {
+                        switchLanguage(lang);
+                    }
+                });
+            });
+            
+            // Handle mobile theme toggle
+            mobileThemeToggle.addEventListener('click', () => {
+                toggleTheme();
+            });
+            
+            // Close sidebar with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isSidebarOpen) {
+                    closeSidebar();
+                }
+            });
+            
+            // Handle header visibility on scroll for mobile
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Hide header when scrolling down, show when scrolling up
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    mainHeader.style.transform = 'translateY(-100%)';
+                } else {
+                    mainHeader.style.transform = 'translateY(0)';
+                }
+                
+                // Add scrolled class for styling
+                if (scrollTop > 50) {
+                    mainHeader.classList.add('scrolled');
+                } else {
+                    mainHeader.classList.remove('scrolled');
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+        }
+        
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            mobileMenuBtn.classList.toggle('active');
+            mobileSidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            document.body.classList.toggle('sidebar-open');
+        }
+        
+        function closeSidebar() {
+            isSidebarOpen = false;
+            mobileMenuBtn.classList.remove('active');
+            mobileSidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.classList.remove('sidebar-open');
+        }
+        
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            
+            // Update both theme toggles
+            const icons = document.querySelectorAll('.theme-toggle i');
+            icons.forEach(icon => {
+                if (isDarkMode) {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            });
+        }
+
+        // ===========================================
+        // INITIALIZATION
+        // ===========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeLoadingScreen();
+            initializeProductsGallery();
+            initializeFacilitiesGallery();
+            initializeLanguageSwitcher();
+            initializeThemeToggle();
+            initializeScrollAnimations();
+            initializeParallax();
+            initializeBubbles();
+            initializeFormValidation();
+            initMobileSidebar(); // Initialize mobile sidebar
+            
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                animateOnScroll();
+            }, 3000);
+        });
+
+        // ===========================================
+        // CORE FUNCTIONS
+        // ===========================================
+
+        function initializeLoadingScreen() {
+            const loadingChars = document.querySelectorAll('.loading-char');
+            loadingChars.forEach((char, index) => {
+                char.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            scrollWave.style.width = `${scrollPercent}%`;
+            scrollPercentage.textContent = `${Math.round(scrollPercent)}%`;
+            
+            animateOnScroll();
+        });
+
+        // Initialize products gallery - USING IMAGE PATHS
+        function initializeProductsGallery() {
+            fishGallery.innerHTML = '';
+            fishCards = [];
+            
+            // إنشاء 38 منتج
+            for (let i = 0; i < 18; i++) {
+                const productIndex = i % seafoodProducts.length;
+                const product = seafoodProducts[productIndex];
+                const fishCard = document.createElement('div');
+                fishCard.className = 'fish-card';
+                fishCard.dataset.id = product.id;
+                fishCard.dataset.index = i;
+                
+                const imagePath = imagePaths.products[i];
+                const fallbackStyle = imagePaths.fallbacks.products(i);
+                
+                fishCard.innerHTML = `
+                    <div class="fish-image-container">
+                        <div class="fish-image"></div>
+                    </div>
+                    <div class="fish-info">
+                        <h3 class="fish-name">${product.name}</h3>
+                        <p class="fish-scientific">${product.scientific}</p>
+                        <p class="fish-habitat">${product.origin}</p>
+                    </div>
+                `;
+                
+                const imageElement = fishCard.querySelector('.fish-image');
+                getImageOrFallback(imagePath, fallbackStyle, imageElement, true);
+                
+                fishCard.addEventListener('click', () => openModal(product, 'product', i));
+                fishGallery.appendChild(fishCard);
+                fishCards.push(fishCard);
+            }
+        }
+
+        // Initialize facilities gallery - USING IMAGE PATHS
+        function initializeFacilitiesGallery() {
+            facilitiesGallery.innerHTML = '';
+            facilityCards = [];
+            
+            // إنشاء 15 مرفق
+            for (let i = 0; i < 15; i++) {
+                const facilityIndex = i % facilitiesData.length;
+                const facility = facilitiesData[facilityIndex];
+                const facilityCard = document.createElement('div');
+                facilityCard.className = 'facility-card';
+                facilityCard.dataset.id = facility.id;
+                facilityCard.dataset.index = i;
+                
+                const imagePath = imagePaths.facilities[i];
+                const fallbackStyle = imagePaths.fallbacks.facilities(i);
+                
+                facilityCard.innerHTML = `
+                    <div class="facility-image-container">
+                        <div class="facility-image"></div>
+                    </div>
+                    <div class="facility-info">
+                        <h3 class="facility-name">${facility.name}</h3>
+                        <p class="facility-type">${facility.type}</p>
+                        <p class="facility-desc">${facility.description.substring(0, 100)}...</p>
+                        <div class="facility-features">
+                            ${facility.features.slice(0, 2).map(feature => `<span class="feature-tag">${feature}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                const imageElement = facilityCard.querySelector('.facility-image');
+                getImageOrFallback(imagePath, fallbackStyle, imageElement, true);
+                
+                facilityCard.addEventListener('click', () => openModal(facility, 'facility', i));
+                facilitiesGallery.appendChild(facilityCard);
+                facilityCards.push(facilityCard);
+            }
+        }
+
+        // Open modal for both products and facilities - USING IMAGE PATHS
+        function openModal(item, type, imageIndex) {
+            modalTitle.textContent = item.name;
+            modalDescription.textContent = item.description;
+            
+            modalDetails.innerHTML = '';
+            
+            // استخدام مسار الصورة المناسب
+            if (type === 'product') {
+                const imagePath = imagePaths.products[imageIndex];
+                const fallbackStyle = imagePaths.fallbacks.products(imageIndex);
+                
+                getImageOrFallback(imagePath, fallbackStyle, modalImage, false);
+                
+                const detailsHTML = `
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.origin">Origin:</span>
+                        <span class="detail-value">${item.origin}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.grade">Quality Grade:</span>
+                        <span class="detail-value">${item.grade}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.size">Available Size:</span>
+                        <span class="detail-value">${item.size}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.packaging">Packaging:</span>
+                        <span class="detail-value">${item.packaging}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.export">Export Markets:</span>
+                        <span class="detail-value">${item.export}</span>
+                    </div>
+                `;
+                modalDetails.innerHTML = detailsHTML;
+            } else if (type === 'facility') {
+                const imagePath = imagePaths.facilities[imageIndex];
+                const fallbackStyle = imagePaths.fallbacks.facilities(imageIndex);
+                
+                getImageOrFallback(imagePath, fallbackStyle, modalImage, false);
+                
+                const detailsHTML = `
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.type">Facility Type:</span>
+                        <span class="detail-value">${item.type}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.capacity">Capacity:</span>
+                        <span class="detail-value">${item.capacity}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.technology">Technology:</span>
+                        <span class="detail-value">${item.technology}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-i18n="modal.certifications">Certifications:</span>
+                        <span class="detail-value">${item.certifications}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Features:</span>
+                        <span class="detail-value">${item.features.join(', ')}</span>
+                    </div>
+                `;
+                modalDetails.innerHTML = detailsHTML;
+            }
+            
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            updateModalTranslations();
+        }
+
+        function updateModalTranslations() {
+            if (translations[currentLang]) {
+                document.querySelectorAll('.detail-label[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[currentLang][key]) {
+                        element.textContent = translations[currentLang][key];
+                    }
+                });
+            }
+        }
+
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Language switcher
+        function initializeLanguageSwitcher() {
+            langButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.dataset.lang;
+                    if (lang !== currentLang) {
+                        switchLanguage(lang);
+                    }
+                });
+            });
+        }
+
+        // Switch language
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update all language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (key === 'about.text') {
+                        element.innerHTML = translations[lang][key].replace(/\n/g, '<br><br>');
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            if (modalOverlay.classList.contains('active')) {
+                updateModalTranslations();
+            }
+        }
+
+        // Theme toggle
+        function initializeThemeToggle() {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+
+        // Scroll animations
+        function initializeScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fishCards.forEach(card => observer.observe(card));
+            facilityCards.forEach(card => observer.observe(card));
+        }
+
+        // Parallax effect
+        function initializeParallax() {
+            document.addEventListener('mousemove', (e) => {
+                const layers = document.querySelectorAll('.parallax-layer');
+                const x = (window.innerWidth - e.pageX * 2) / 100;
+                const y = (window.innerHeight - e.pageY * 2) / 100;
+                
+                layers.forEach(layer => {
+                    const depth = layer.getAttribute('data-depth');
+                    const xMove = x * depth;
+                    const yMove = y * depth;
+                    
+                    layer.style.transform = `translateX(${xMove}px) translateY(${yMove}px)`;
+                });
+            });
+            
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                heroBackground.style.transform = `translate3d(0, ${rate}px, 0)`;
+            });
+        }
+
+        // Floating bubbles
+        function initializeBubbles() {
+            const bubblesContainer = document.querySelector('.floating-bubbles');
+            
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                const size = Math.random() * 20 + 5;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+                bubble.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+
+        // Form validation
+        function initializeFormValidation() {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const message = document.getElementById('message').value;
+                
+                if (!name || !email || !phone || !message) {
+                    showFormMessage('Please fill in all fields', 'error');
+                    return;
+                }
+                
+                if (!isValidEmail(email)) {
+                    showFormMessage('Please enter a valid email address', 'error');
+                    return;
+                }
+                
+                if (!isValidPhone(phone)) {
+                    showFormMessage('Please enter a valid phone number', 'error');
+                    return;
+                }
+                
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const originalText = submitBtn.querySelector('.btn-text').textContent;
+                
+                submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    showFormMessage('Message sent successfully! We will contact you soon.', 'success');
+                    contactForm.reset();
+                    
+                    submitBtn.querySelector('.btn-text').textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+        }
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const re = /^[\+]?[1-9][\d]{0,15}$/;
+            return re.test(phone.replace(/[\s\-\(\)]/g, ''));
+        }
+
+        // Show form message
+        function showFormMessage(text, type) {
+            const existingMsg = document.querySelector('.form-message');
+            if (existingMsg) existingMsg.remove();
+            
+            const message = document.createElement('div');
+            message.className = `form-message ${type}`;
+            message.textContent = text;
+            message.style.cssText = `
+                padding: 15px;
+                margin-top: 20px;
+                border-radius: 5px;
+                text-align: center;
+                animation: slideIn 0.5s ease;
+            `;
+            
+            if (type === 'success') {
+                message.style.backgroundColor = 'rgba(76, 175, 80, 0.2)';
+                message.style.color = '#4caf50';
+                message.style.border = '1px solid #4caf50';
+            } else {
+                message.style.backgroundColor = 'rgba(244, 67, 54, 0.2)';
+                message.style.color = '#f44336';
+                message.style.border = '1px solid #f44336';
+            }
+            
+            contactForm.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => message.remove(), 500);
+            }, 5000);
+        }
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            fishCards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+                
+                if (isVisible && !card.classList.contains('visible')) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 30);
+                }
+            });
+            
+            facilityCards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+                
+                if (isVisible && !card.classList.contains('visible')) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 30);
+                }
+            });
+        }
+
+        // Hero CTA button animation
+        if (heroCta) {
+            heroCta.addEventListener('click', (e) => {
+                document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+                
+                const ripple = document.createElement('span');
+                const rect = heroCta.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.5);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                `;
+                
+                heroCta.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        }
+
+        // Image management functions
+        function checkImageExists(imagePath, callback) {
+            const img = new Image();
+            img.onload = () => callback(true);
+            img.onerror = () => callback(false);
+            img.src = imagePath;
+        }
+
+        function getImageOrFallback(imagePath, fallbackStyle, element, isBackground = false) {
+            checkImageExists(imagePath, (exists) => {
+                if (exists) {
+                    if (isBackground) {
+                        element.style.backgroundImage = `url('${imagePath}')`;
+                        element.style.backgroundSize = 'cover';
+                        element.style.backgroundPosition = 'center';
+                    } else {
+                        element.src = imagePath;
+                        element.style.display = 'block';
+                    }
+                } else {
+                    if (isBackground) {
+                        element.style.background = fallbackStyle;
+                        element.style.backgroundImage = 'none';
+                    } else {
+                        element.style.background = fallbackStyle;
+                        element.style.display = 'block';
+                        element.src = '';
+                    }
+                }
+            });
+        }
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
